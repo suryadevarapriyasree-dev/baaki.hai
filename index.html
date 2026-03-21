@@ -4195,19 +4195,20 @@ try{
 }catch(e){}
 </script>
 <script>
-const user = sessionStorage.getItem("bh_user");
+const user = JSON.parse(sessionStorage.getItem("bh_user"));
 
+// protect page
 if (!user) {
   window.location.href = "/login.html";
 }
-</script>
-  <script>
-const user = JSON.parse(sessionStorage.getItem("bh_user"));
 
-if (user && user.name) {
-  document.getElementById("username").innerText = user.name;
-}
+// show username AFTER page loads
+window.onload = function() {
+  if (user && user.name) {
+    const el = document.getElementById("username");
+    if (el) el.innerText = user.name;
+  }
+};
 </script>
-
 </body>
 </html>
