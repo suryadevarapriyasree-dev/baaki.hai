@@ -53,28 +53,23 @@
 
 <script>
 function googleLogin() {
-  // 🔥 simulate google login
-  const user = {
-    name: "Priyasree",
-    exam: "upsc"
-  };
+  const provider = new firebase.auth.GoogleAuthProvider();
 
-  sessionStorage.setItem("bh_user", JSON.stringify(user));
+  firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user;
 
-  window.location.href = "/index.html";
-}
+      // store user
+      sessionStorage.setItem("bh_user", JSON.stringify({
+        name: user.displayName,
+        email: user.email
+      }));
 
-function phoneLogin() {
-  const name = prompt("Enter your name");
-
-  if (!name) return;
-
-  sessionStorage.setItem("bh_user", JSON.stringify({
-    name: name,
-    exam: "upsc"
-  }));
-
-  window.location.href = "/index.html";
+      window.location.href = "/index.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
 }
 </script>
 
