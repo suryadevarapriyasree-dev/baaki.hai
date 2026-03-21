@@ -94,7 +94,18 @@ function googleLogin() {
       alert(error.message);
     });
 }
+  window.onload = function () {
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+    'recaptcha-container',
+    { size: 'invisible' }
+  );
+};
 </script>
+  <div id="recaptcha-container"></div>
+
+<input type="text" id="phone" placeholder="+91XXXXXXXXXX">
+
+<button onclick="phoneLogin()">Send OTP</button>
 
 </body>
 </html>
