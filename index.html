@@ -1016,7 +1016,7 @@ input,textarea,select{font-family:var(--fb)}
     </button>
     <div class="u-pill" onclick="go('profile',document.querySelector('[data-pg=profile]'))">
       <div class="u-av">AR</div>
-      <span class="u-nm">Aryan</span>
+      <span class="u-nm"><span id="username">User</span></span>
     </div>
   </div>
 </header>
@@ -1127,7 +1127,7 @@ input,textarea,select{font-family:var(--fb)}
   <div class="reminder-banner daily" id="rem-daily">
     <div class="rb-icon">🌅</div>
     <div class="rb-main">
-      <div class="rb-title">Good morning, Aryan</div>
+      <div class="rb-title">Good morning, <span id="username">User</span></div>
       <div class="rb-msg">No pressure today — just checking in. Even one small thing counts. We've got you. 🌿</div>
     </div>
     <button class="rb-dismiss" onclick="this.closest('.reminder-banner').style.display='none'">✕</button>
@@ -1613,7 +1613,7 @@ input,textarea,select{font-family:var(--fb)}
             <div class="club-how">What happens: Share puzzle + your time → others attempt → named leaderboard shows fastest this week</div>
             <div class="lb-preview">
               <div class="lb-item"><span class="lb-rank">🥇</span><span class="lb-name">Priya R.</span><span class="lb-time">34 min</span></div>
-              <div class="lb-item"><span class="lb-rank">🥈</span><span class="lb-name">Aryan K.</span><span class="lb-time">41 min</span></div>
+              <div class="lb-item"><span class="lb-rank">🥈</span><span class="lb-name"><span id="username">User</span> K.</span><span class="lb-time">41 min</span></div>
               <div class="lb-item"><span class="lb-rank">🥉</span><span class="lb-name">Meena S.</span><span class="lb-time">47 min</span></div>
             </div>
             <div class="club-footer"><span class="club-members">👥 284</span><span class="expert-badge">⭐ Expert: Every 2nd Sat</span><button class="club-join" onclick="joinClub('Sudoku Challenge')">Join</button></div>
@@ -1843,7 +1843,7 @@ input,textarea,select{font-family:var(--fb)}
     <div>
       <div class="profile-card" style="margin-bottom:12px">
         <div class="profile-av">AR</div>
-        <div class="profile-name">Aryan Rathi</div>
+        <div class="profile-name"><span id="username">User</span>Rathi</div>
         <div class="profile-joined">Member since January 2025 · 47 days on Baaki Hai</div>
         <div class="profile-stats">
           <div class="ps-item"><div class="ps-n">7</div><div class="ps-l">Day streak</div></div>
@@ -2279,7 +2279,7 @@ function getWeekKey(){
 window.triggerTestReminder = function(){
   queueInapp({
     icon: '🌅',
-    title: 'Good morning, Aryan',
+    title: 'Good morning, <span id="username">User</span>',
     msg: 'No pressure today — just checking in. Even one small thing counts. We\'ve got you. 🌿',
     duration: 8000,
     actions: [
