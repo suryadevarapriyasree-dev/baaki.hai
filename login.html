@@ -71,6 +71,29 @@ function googleLogin() {
       alert(error.message);
     });
 }
+  function phoneLogin() {
+  const phoneNumber = document.getElementById("phone").value;
+
+  firebase.auth().signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+    .then((confirmationResult) => {
+      const code = prompt("Enter OTP");
+
+      return confirmationResult.confirm(code);
+    })
+    .then((result) => {
+      const user = result.user;
+
+      sessionStorage.setItem("bh_user", JSON.stringify({
+        name: "User", // phone login doesn’t give name
+        phone: user.phoneNumber
+      }));
+
+      window.location.href = "/index.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+}
 </script>
 
 </body>
