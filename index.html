@@ -1015,8 +1015,8 @@ input,textarea,select{font-family:var(--fb)}
       <div class="ndot"></div>
     </button>
     <div class="u-pill" onclick="go('profile',document.querySelector('[data-pg=profile]'))">
-      <div class="u-av">AR</div>
-      <span class="u-nm"><span id="username">User</span></span>
+      <div class="u-av" id="user-av">?</div>
+      <span class="u-nm" id="user-nm">You</span>
     </div>
   </div>
 </header>
@@ -1127,7 +1127,7 @@ input,textarea,select{font-family:var(--fb)}
   <div class="reminder-banner daily" id="rem-daily">
     <div class="rb-icon">🌅</div>
     <div class="rb-main">
-      <div class="rb-title">Good morning, <span id="username">User</span></div>
+      <div class="rb-title">Good morning, <span class="user-first-name">friend</span></div>
       <div class="rb-msg">No pressure today — just checking in. Even one small thing counts. We've got you. 🌿</div>
     </div>
     <button class="rb-dismiss" onclick="this.closest('.reminder-banner').style.display='none'">✕</button>
@@ -1613,7 +1613,7 @@ input,textarea,select{font-family:var(--fb)}
             <div class="club-how">What happens: Share puzzle + your time → others attempt → named leaderboard shows fastest this week</div>
             <div class="lb-preview">
               <div class="lb-item"><span class="lb-rank">🥇</span><span class="lb-name">Priya R.</span><span class="lb-time">34 min</span></div>
-              <div class="lb-item"><span class="lb-rank">🥈</span><span class="lb-name"><span id="username">User</span> K.</span><span class="lb-time">41 min</span></div>
+              <div class="lb-item"><span class="lb-rank">🥈</span><span class="lb-name">Aryan K.</span><span class="lb-time">41 min</span></div>
               <div class="lb-item"><span class="lb-rank">🥉</span><span class="lb-name">Meena S.</span><span class="lb-time">47 min</span></div>
             </div>
             <div class="club-footer"><span class="club-members">👥 284</span><span class="expert-badge">⭐ Expert: Every 2nd Sat</span><button class="club-join" onclick="joinClub('Sudoku Challenge')">Join</button></div>
@@ -1707,7 +1707,7 @@ input,textarea,select{font-family:var(--fb)}
       <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:10px">COMMUNITY FEED</div>
       <div class="post-input">
         <div class="pi-row">
-          <div class="pi-av">AR</div>
+          <div class="pi-av" id="feed-av">?</div>
           <textarea class="pi-ta" id="post-input" placeholder="Share an update, a win, a struggle..." rows="2"></textarea>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
@@ -1842,9 +1842,9 @@ input,textarea,select{font-family:var(--fb)}
   <div class="profile-grid">
     <div>
       <div class="profile-card" style="margin-bottom:12px">
-        <div class="profile-av">AR</div>
-        <div class="profile-name"><span id="username">User</span>Rathi</div>
-        <div class="profile-joined">Member since January 2025 · 47 days on Baaki Hai</div>
+        <div class="profile-av" id="profile-av">?</div>
+        <div class="profile-name" id="profile-name">Your Name</div>
+        <div class="profile-joined" id="profile-joined">Member of Baaki Hai</div>
         <div class="profile-stats">
           <div class="ps-item"><div class="ps-n">7</div><div class="ps-l">Day streak</div></div>
           <div class="ps-item"><div class="ps-n">34</div><div class="ps-l">Tasks done</div></div>
@@ -2279,7 +2279,7 @@ function getWeekKey(){
 window.triggerTestReminder = function(){
   queueInapp({
     icon: '🌅',
-    title: 'Good morning, <span id="username">User</span>',
+    title: 'Good morning, Aryan',
     msg: 'No pressure today — just checking in. Even one small thing counts. We\'ve got you. 🌿',
     duration: 8000,
     actions: [
@@ -4176,14 +4176,54 @@ function doCheckin(btn,label){
   }
 }
 
+/* ── LOAD USER DYNAMICALLY FROM LOGIN ── */
+function loadUser(){
+  var user = null;
+  try{
+    var stored = sessionStorage.getItem('bh_user');
+    if(stored) user = JSON.parse(stored);
+    var params = new URLSearchParams(window.location.search);
+    if(params.get('name')){
+      user = user || {};
+      user.name = decodeURIComponent(params.get('name'));
+      user.exam = params.get('exam') || (user && user.exam) || 'upsc';
+    }
+  }catch(e){}
+  if(!user || !user.name) return;
+
+  var name = user.name;
+  var initials = name.split(' ').map(function(w){ return w[0]||''; }).join('').toUpperCase().slice(0,2) || '?';
+  var firstName = name.split(' ')[0];
+  var exam = user.exam || 'upsc';
+
+  // Update initials and name everywhere
+  ['user-av','profile-av','feed-av'].forEach(function(id){
+    var el = document.getElementById(id); if(el) el.textContent = initials;
+  });
+  var unm = document.getElementById('user-nm'); if(unm) unm.textContent = firstName;
+  var pnm = document.getElementById('profile-name'); if(pnm) pnm.textContent = name;
+  var pjn = document.getElementById('profile-joined'); if(pjn) pjn.textContent = 'Member of Baaki Hai 🌿';
+  document.querySelectorAll('.user-first-name').forEach(function(el){ el.textContent = firstName; });
+
+  // Morning reminder greeting
+  var rbTitle = document.querySelector('#rem-daily .rb-title');
+  if(rbTitle) rbTitle.innerHTML = 'Good morning, ' + firstName;
+
+  // Set exam dropdown and apply UI
+  var examSel = document.getElementById('exam-select');
+  if(examSel && exam) examSel.value = exam;
+  currentExam = exam;
+}
+
 /* ── INIT ── */
 setDailyQuote();
 loadTasks();
 renderTasks();
 renderWeek();
 renderMoodTrack();
-// Apply default exam UI (UPSC) on first load
-applyExamUI('upsc');
+loadUser();
+// Apply default exam UI on first load (loadUser may override)
+applyExamUI(currentExam || 'upsc');
 // Check for yesterday's pending on load
 try{
   const pDate=localStorage.getItem('bh_pending_date');
@@ -4193,22 +4233,6 @@ try{
     if(pending.length) setTimeout(()=>showPendingReminder(pending,pDate),1200);
   }
 }catch(e){}
-</script>
-<script>
-const user = JSON.parse(sessionStorage.getItem("bh_user"));
-
-// protect page
-if (!user) {
-  window.location.href = "/login.html";
-}
-
-// show username AFTER page loads
-window.onload = function() {
-  if (user && user.name) {
-    const el = document.getElementById("username");
-    if (el) el.innerText = user.name;
-  }
-};
 </script>
 </body>
 </html>
