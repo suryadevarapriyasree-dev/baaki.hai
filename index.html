@@ -71,7 +71,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--tx);min-height:100vh
 .streak-sidebar{display:flex;align-items:center;gap:8px;background:var(--turmeric-bg);border:1px solid rgba(201,138,20,.22);border-radius:10px;padding:9px 13px;margin-top:10px}
 .icon-btn{width:36px;height:36px;border-radius:50%;background:rgba(242,232,212,.07);border:1px solid rgba(242,232,212,.1);color:rgba(242,232,212,.65);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;position:relative;flex-shrink:0;padding:0;line-height:1}
 .icon-btn:hover{background:rgba(242,232,212,.13)}
-.icon-btn i{display:flex;align-items:center;justify-content:center;line-height:1;width:16px;height:16px}
+.icon-btn i{display:flex;align-items:center;justify-content:center;line-height:1;width:18px;height:18px;font-size:18px}
 .ndot{position:absolute;top:3px;right:3px;width:8px;height:8px;background:var(--terra);border-radius:50%;border:1.5px solid var(--bgt);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(184,73,31,.4)}50%{box-shadow:0 0 0 5px rgba(184,73,31,0)}}
 .u-pill{display:flex;align-items:center;gap:7px;background:rgba(242,232,212,.07);border:1px solid rgba(242,232,212,.1);border-radius:30px;padding:4px 12px 4px 5px;cursor:pointer;transition:.15s}
@@ -704,6 +704,68 @@ body{font-family:var(--fb);background:var(--bg);color:var(--tx);min-height:100vh
 ::-webkit-scrollbar-thumb{background:var(--c3);border-radius:2px}
 input,textarea,select{font-family:var(--fb)}
 
+/* ══════════ MOBILE RESPONSIVE ══════════ */
+@media(max-width:768px){
+  .shell{grid-template-columns:1fr;min-height:100vh}
+  .topbar{height:56px;padding:0 14px;grid-column:1/-1}
+  .brand-tagline{display:none}
+  .sidebar{display:none;position:fixed;inset:0;z-index:500;width:100%;height:100vh;padding:70px 0 20px;transform:translateX(-100%);transition:transform .3s ease}
+  .sidebar.open{display:flex;transform:translateX(0)}
+  .main{height:calc(100vh - 56px);padding:16px 14px;grid-column:1/-1}
+  /* Mobile topbar menu button */
+  .mob-menu{display:flex}
+  /* hero */
+  .hero{padding:24px 20px 20px;border-radius:16px}
+  .hh1{font-size:28px}
+  .hp{font-size:12.5px}
+  .hstats{gap:14px}
+  .hsn{font-size:20px}
+  /* grids */
+  .feat-grid,.feat-grid2{grid-template-columns:1fr}
+  .beliefs,.os-beliefs,.collab-grid,.pkg-grid,.path-grid,.ms-row{grid-template-columns:1fr}
+  .pro-grid,.group-grid,.club-grid,.slots-row,.cal-outer{grid-template-columns:1fr}
+  .profile-grid{grid-template-columns:1fr}
+  .say-lay{grid-template-columns:1fr;height:auto}
+  .cs{display:none}
+  .cp{height:calc(100vh - 180px)}
+  /* schedule */
+  .wg{grid-template-columns:40px repeat(7,1fr);font-size:8px}
+  .wb{font-size:7.5px;padding:2px 3px}
+  /* tasks */
+  #tasks>div>div:first-child{grid-template-columns:1fr}
+  /* notif panel */
+  .np{width:calc(100vw - 24px);right:12px}
+  /* sangam */
+  .sangam-lay{grid-template-columns:1fr}
+  .cat-tabs{gap:4px}
+  .cat-tab{font-size:10px;padding:4px 9px}
+  /* topbar compact */
+  .streak-p{display:none}
+  .u-nm{display:none}
+  /* in-app notif stack */
+  .inapp-stack{right:10px;bottom:10px;max-width:calc(100vw - 20px)}
+  .inapp-notif{max-width:100%}
+  /* saath */
+  .matcher-ta{min-height:50px}
+  /* page header */
+  .pt{font-size:22px!important}
+  .ps{font-size:12px!important}
+  /* topbar back btn */
+  .topbar>div:first-child>button:first-child{display:none}
+}
+@media(max-width:480px){
+  .hh1{font-size:22px}
+  .ob-exams{grid-template-columns:1fr}
+  .ob-logo{font-size:38px}
+  .pkg-grid{grid-template-columns:1fr}
+  .fr{grid-template-columns:1fr auto}
+  .wg{display:none}
+  .wg-mobile-msg{display:block;background:var(--c2);border-radius:var(--rmd);padding:12px;font-size:12px;color:var(--tx2);text-align:center;margin-bottom:12px}
+}
+/* Hide mobile menu on desktop */
+.mob-menu{display:none}
+
+
 /* ── IMPORT TOOLBAR ── */
 .import-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
 .ibtn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--rsm);border:1px solid var(--br2);background:var(--bgc);font-family:var(--fb);font-size:12px;font-weight:700;color:var(--tx2);cursor:pointer;transition:all .15s;box-shadow:var(--sh1)}
@@ -926,7 +988,11 @@ input,textarea,select{font-family:var(--fb)}
 
 <!-- TOPBAR -->
 <header class="topbar">
-  <div style="display:flex;align-items:center;gap:12px">
+  <div style="display:flex;align-items:center;gap:8px">
+    <!-- Mobile menu toggle -->
+    <button class="icon-btn mob-menu" onclick="toggleSidebar()" title="Menu">
+      <i class="ph ph-list"></i>
+    </button>
     <button onclick="backToOnboarding()" title="Back to start" style="width:32px;height:32px;border-radius:50%;background:rgba(242,232,212,.07);border:1px solid rgba(242,232,212,.12);color:rgba(242,232,212,.5);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0" onmouseover="this.style.background='rgba(242,232,212,.14)';this.style.color='rgba(242,232,212,.9)'" onmouseout="this.style.background='rgba(242,232,212,.07)';this.style.color='rgba(242,232,212,.5)'">
       ←
     </button>
@@ -1281,42 +1347,21 @@ input,textarea,select{font-family:var(--fb)}
       <div class="msgs" id="chat-msgs">
         <div class="mg bot">
           <div class="mg-s">Sahayak</div>
-          <div class="bub">Namaste 🙏<br><br>I'm Sahayak — your companion on this journey. I'll be ready to listen very soon.<br><br>I know what it feels like to give years to something and still feel uncertain. Hold on — I'm almost here.</div>
+          <div class="bub">Namaste 🙏<br><br>I'm Sahayak — your companion on this journey. Not a coach, not a tutor. Just someone who understands what this preparation really costs.<br><br>I know what it feels like to give years to something and still feel uncertain. You can say anything here — I'm listening. What's on your heart today?</div>
           <div class="mg-t">Just now</div>
         </div>
-        <!-- COMING SOON BANNER -->
-        <div style="margin:18px 0;background:linear-gradient(135deg,var(--terra-bg),var(--turmeric-bg));border:1px solid rgba(201,138,20,.25);border-radius:var(--rlg);padding:22px 24px;text-align:center">
-          <div style="font-size:32px;margin-bottom:10px">🌿</div>
-          <div style="font-family:var(--fd);font-size:20px;font-weight:700;color:var(--tx);margin-bottom:6px">Sahayak is coming very soon</div>
-          <div style="font-size:13px;color:var(--tx2);line-height:1.6;max-width:340px;margin:0 auto 16px">Your AI companion — empathetic, non-judgmental, available at 2 AM. We're putting finishing touches before opening it up.</div>
-          <div style="display:inline-flex;align-items:center;gap:8px;background:var(--bgc);border:1px solid var(--br2);border-radius:30px;padding:8px 18px;margin-bottom:14px">
-            <span style="width:8px;height:8px;background:var(--terra);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0"></span>
-            <span style="font-size:12px;font-weight:700;color:var(--tx2)">Launching in about a week</span>
-          </div>
-          <div style="font-size:12px;color:var(--tx3);font-style:italic">Meanwhile — use Sankalp to plan your day 👇</div>
-          <button onclick="go('tasks',document.querySelector('[data-pg=tasks]'))" style="margin-top:12px;background:var(--terra);color:white;border:none;border-radius:var(--rsm);padding:9px 20px;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px">
-            <i class="ph ph-check-square"></i> Go to Today's Tasks →
-          </button>
-        </div>
-        <!-- NOTIFY ME FORM -->
-        <div style="background:var(--bgc);border:1px solid var(--br);border-radius:var(--rlg);padding:16px 18px;margin-top:4px">
-          <div style="font-size:12px;font-weight:700;color:var(--tx);margin-bottom:8px">🔔 Get notified when Sahayak launches</div>
-          <div style="display:flex;gap:7px">
-            <input type="email" id="notify-email" placeholder="Your email address" style="flex:1;border:1px solid var(--br2);border-radius:var(--rsm);padding:8px 12px;font-family:var(--fb);font-size:13px;background:var(--bg);color:var(--tx);outline:none">
-            <button onclick="saveNotifyEmail()" style="background:var(--terra);color:white;border:none;border-radius:var(--rsm);padding:8px 16px;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Notify me</button>
-          </div>
-          <div id="notify-done" style="display:none;font-size:12px;color:var(--sage);margin-top:7px;font-weight:600">✓ We'll let you know the moment Sahayak is live 🙏</div>
-        </div>
       </div>
-      <div class="qps" style="opacity:.4;pointer-events:none">
-        <button class="qp">I'm burnt out</button>
-        <button class="qp">I failed again</button>
-        <button class="qp">Help me restart</button>
-        <button class="qp">Family pressure is too much</button>
+      <div class="qps" id="quick-prompts">
+        <button class="qp" onclick="sendQ(this)">I'm burnt out</button>
+        <button class="qp" onclick="sendQ(this)">I failed again</button>
+        <button class="qp" onclick="sendQ(this)">Help me restart</button>
+        <button class="qp" onclick="sendQ(this)">Family pressure is too much</button>
+        <button class="qp" onclick="sendQ(this)">Suggest a hobby for today</button>
+        <button class="qp" onclick="sendQ(this)">Breathing exercise</button>
       </div>
-      <div class="chat-bar" style="opacity:.4;pointer-events:none">
-        <textarea class="chat-ta" placeholder="Sahayak will be ready soon..." rows="1" disabled></textarea>
-        <button class="send-btn" disabled>
+      <div class="chat-bar">
+        <textarea class="chat-ta" id="chat-input" placeholder="Type anything — Sahayak is listening..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="send-btn" onclick="sendMsg()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
@@ -1353,24 +1398,58 @@ input,textarea,select{font-family:var(--fb)}
     <button class="fchip" onclick="filterPros(this,'free')">Free / Low-cost</button>
     <button class="fchip" onclick="filterPros(this,'upsc')">UPSC-aware</button>
   </div>
-  <div class="sah-sec"><div class="sah-lbl">🌿 Counsellors <span class="sah-cnt">4</span></div><div class="sah-line"></div><div style="font-size:10px;color:var(--tx3);white-space:nowrap">For exam stress · burnout · life transitions</div></div>
-  <div class="pro-grid">
-    <div class="pro-card cn" data-type="cn" data-tags="free upsc"><div class="free-badge">FREE</div><div class="pro-top"><div class="pro-av">RP</div><div><div class="pro-name">Ritu Prakash</div><div class="pro-cred">M.A. Psychology · 6 years · iCall trained</div><div style="display:flex;gap:5px;flex-wrap:wrap"><span class="tag tg">UPSC-aware</span><span class="tag tsk">Online</span><span class="tag tgo">Free</span></div></div></div><div class="pro-note">I've worked with 200+ UPSC aspirants. I know what the third failed attempt feels like — and I know there is a way through.</div><div class="pro-meta"><div class="pro-mi">📍 Delhi · Pan-India</div><div class="pro-mi">🗣️ Hindi & English</div><button class="pro-con" onclick="connectPro('Ritu Prakash')">Connect →</button></div></div>
-    <div class="pro-card cn" data-type="cn" data-tags="upsc"><div class="pro-top"><div class="pro-av">AK</div><div><div class="pro-name">Arjun Khanna</div><div class="pro-cred">MSW · Career Transition · 8 years</div><div style="display:flex;gap:5px"><span class="tag tg">UPSC-aware</span><span class="tag tsk">Online</span><span class="tag tt">₹200/session</span></div></div></div><div class="pro-note">Former aspirant — 4 attempts myself. I speak this language. I help people find what comes next, without shame.</div><div class="pro-meta"><div class="pro-mi">📍 Lucknow · Online</div><div class="pro-mi">🗣️ Hindi</div><button class="pro-con" onclick="connectPro('Arjun Khanna')">Connect →</button></div></div>
-    <div class="pro-card cn" data-type="cn" data-tags="free"><div class="free-badge">FREE</div><div class="pro-top"><div class="pro-av">SM</div><div><div class="pro-name">Sneha Mohan</div><div class="pro-cred">M.Phil Counselling Psychology</div><div style="display:flex;gap:5px"><span class="tag tsk">Online</span><span class="tag tgo">Free</span></div></div></div><div class="pro-note">This is not about whether you'll clear. It's about how you are living right now — and you deserve to live well.</div><div class="pro-meta"><div class="pro-mi">📍 Pan-India</div><div class="pro-mi">🗣️ English & Tamil</div><button class="pro-con" onclick="connectPro('Sneha Mohan')">Connect →</button></div></div>
-    <div class="pro-card cn" data-type="cn" data-tags="upsc"><div class="pro-top"><div class="pro-av">VR</div><div><div class="pro-name">Vikram Rao</div><div class="pro-cred">MA Counselling · Mindfulness · 5 years</div><div style="display:flex;gap:5px"><span class="tag tg">UPSC-aware</span><span class="tag tsk">Online</span><span class="tag tt">₹300/session</span></div></div></div><div class="pro-note">Preparation should not cost you your mental health. Sustainable routines, not grinding harder.</div><div class="pro-meta"><div class="pro-mi">📍 Bangalore · Online</div><div class="pro-mi">🗣️ English & Kannada</div><button class="pro-con" onclick="connectPro('Vikram Rao')">Connect →</button></div></div>
+  <div class="sah-sec"><div class="sah-lbl">🌿 Counsellors & Therapists</div><div class="sah-line"></div></div>
+
+  <!-- Honest coming soon notice -->
+  <div style="background:var(--turmeric-bg);border:1px solid rgba(201,138,20,.22);border-radius:var(--rlg);padding:18px 20px;margin-bottom:18px">
+    <div style="display:flex;align-items:flex-start;gap:14px">
+      <div style="font-size:26px;flex-shrink:0">🔍</div>
+      <div>
+        <div style="font-family:var(--fd);font-size:17px;font-weight:700;color:var(--tx);margin-bottom:4px">We are verifying real counsellors</div>
+        <div style="font-size:13px;color:var(--tx2);line-height:1.65;margin-bottom:12px">Every counsellor and therapist listed on Baaki Hai will be verified — credentials checked, values aligned, aspirant-aware. We will not show placeholder profiles. That would be a disservice to the trust this space is built on.</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:14px">If you are a counsellor, therapist, or psychologist who wants to be listed — apply below. Listing is free, always.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a href="https://forms.gle/baakihai-counsellor" target="_blank" class="btn bsage bsm" style="text-decoration:none">Apply to be listed →</a>
+          <a href="mailto:baakihai.connect@gmail.com" class="btn bo bsm" style="text-decoration:none">Email us directly</a>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="sah-sec"><div class="sah-lbl">💜 Licensed Therapists <span class="sah-cnt">3</span></div><div class="sah-line"></div><div style="font-size:10px;color:var(--tx3);white-space:nowrap">For anxiety · depression · deeper needs</div></div>
-  <div class="pro-grid">
-    <div class="pro-card th" data-type="th" data-tags="free upsc"><div class="free-badge">SLIDING SCALE</div><div class="pro-top"><div class="pro-av">DM</div><div><div class="pro-name">Dr. Divya Menon</div><div class="pro-cred">Ph.D Clinical Psychology · RCI Licensed · 11 years</div><div style="display:flex;gap:5px"><span class="tag tm">Psychologist</span><span class="tag tsk">Online</span><span class="tag tgo">Sliding scale</span></div></div></div><div class="pro-note">Anxiety in competitive exam contexts is deeply real and deeply treatable. You don't have to white-knuckle through it alone.</div><div class="pro-meta"><div class="pro-mi">📍 Chennai · Online</div><div class="pro-mi">🗣️ English & Malayalam</div><button class="pro-con" onclick="connectPro('Dr. Divya Menon')">Connect →</button></div></div>
-    <div class="pro-card th" data-type="th" data-tags="upsc"><div class="pro-top"><div class="pro-av">PS</div><div><div class="pro-name">Dr. Priya Sharma</div><div class="pro-cred">MD Psychiatry · NIMHANS trained · 14 years</div><div style="display:flex;gap:5px"><span class="tag tm">Psychiatrist</span><span class="tag tsk">Teleconsult</span><span class="tag tg">UPSC-aware</span></div></div></div><div class="pro-note">The pressure you are under is extraordinary. You deserve clinical support, not just willpower.</div><div class="pro-meta"><div class="pro-mi">📍 Delhi · Teleconsult</div><div class="pro-mi">🗣️ Hindi & English</div><button class="pro-con" onclick="connectPro('Dr. Priya Sharma')">Connect →</button></div></div>
-    <div class="pro-card th" data-type="th" data-tags="free"><div class="free-badge">FREE NGO</div><div class="pro-top"><div class="pro-av">NJ</div><div><div class="pro-name">Neeraj Joshi</div><div class="pro-cred">M.Phil Clinical Psychology · The Minds Foundation</div><div style="display:flex;gap:5px"><span class="tag tm">Psychologist</span><span class="tag tsk">Online</span><span class="tag tgo">Free</span></div></div></div><div class="pro-note">Cost should never be a barrier to mental health. Completely free through The Minds Foundation.</div><div class="pro-meta"><div class="pro-mi">📍 Pan-India</div><div class="pro-mi">🗣️ Hindi & English</div><button class="pro-con" onclick="connectPro('Neeraj Joshi')">Connect →</button></div></div>
+
+  <!-- Sample counsellor card (clearly marked as example) -->
+  <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:10px">This is how counsellor profiles will look</div>
+  <div class="pro-grid" style="margin-bottom:18px">
+    <div class="pro-card cn" style="opacity:.75;pointer-events:none">
+      <div style="position:absolute;top:11px;right:11px;background:var(--turmeric-bg);color:var(--turmeric);border-radius:7px;padding:2px 8px;font-size:9px;font-weight:700;border:1px solid rgba(201,138,20,.3)">SAMPLE ONLY</div>
+      <div class="pro-top"><div class="pro-av">AP</div><div><div class="pro-name">Arjuna P.</div><div class="pro-cred">M.A. Psychology · Aspirant-aware · 5+ years</div><div style="display:flex;gap:5px;flex-wrap:wrap"><span class="tag tg">Aspirant-aware</span><span class="tag tsk">Online</span><span class="tag tgo">Free sessions</span></div></div></div>
+      <div class="pro-note">"I understand what years of preparation does to a person — not just the stress but the identity, the isolation, the grief of near-misses. You don't have to explain why this is hard."</div>
+      <div class="pro-meta"><div class="pro-mi">📍 Pan-India · Online</div><div class="pro-mi">🗣️ Hindi & English</div><button class="pro-con" style="opacity:.5">Connect →</button></div>
+    </div>
+    <div class="pro-card cn" style="opacity:.75;pointer-events:none">
+      <div style="position:absolute;top:11px;right:11px;background:var(--turmeric-bg);color:var(--turmeric);border-radius:7px;padding:2px 8px;font-size:9px;font-weight:700;border:1px solid rgba(201,138,20,.3)">SAMPLE ONLY</div>
+      <div class="pro-top"><div class="pro-av">SK</div><div><div class="pro-name">Sunaina K.</div><div class="pro-cred">MSc Counselling Psychology · Burnout specialist</div><div style="display:flex;gap:5px;flex-wrap:wrap"><span class="tag tg">Burnout focus</span><span class="tag tsk">Online</span><span class="tag tt">₹150–300/session</span></div></div></div>
+      <div class="pro-note">"The exhaustion of exam preparation is specific and real. I work with people who have given everything — and need space to figure out what comes next, without pressure."</div>
+      <div class="pro-meta"><div class="pro-mi">📍 Pune · Online</div><div class="pro-mi">🗣️ Marathi & English</div><button class="pro-con" style="opacity:.5">Connect →</button></div>
+    </div>
   </div>
+
+  <!-- Crisis lines stay — these are real -->
+  <div class="sah-sec"><div class="sah-lbl">🔴 Crisis support — real, free, right now</div><div class="sah-line"></div></div>
+  <div class="crisis-bar" style="margin-bottom:18px">
+    <div class="crisis-t">Free, confidential helplines — call anytime</div>
+    <div class="crisis-lines">
+      <div class="cchip"><span style="font-size:14px">📞</span><div><div class="cc-name">iCall</div><div class="cc-num">9152987821</div></div></div>
+      <div class="cchip"><span style="font-size:14px">💙</span><div><div class="cc-name">Vandrevala Foundation</div><div class="cc-num">1860-2662-345</div></div></div>
+      <div class="cchip"><span style="font-size:14px">🌸</span><div><div class="cc-name">Snehi</div><div class="cc-num">044-24640050</div></div></div>
+      <div class="cchip"><span style="font-size:14px">🤍</span><div><div class="cc-name">NIMHANS</div><div class="cc-num">080-46110007</div></div></div>
+    </div>
+  </div>
+
   <div class="sah-sec"><div class="sah-lbl">💼 1-to-1 Packages</div><div class="sah-line"></div></div>
   <div class="pkg-grid">
-    <div class="pkg"><div class="pkg-name">Single Session</div><div class="pkg-price">₹250</div><div class="pkg-per">counsellor · 45 min</div><div class="pkg-feat"><span>Video call</span><span>Choose your counsellor</span><span>No commitment</span></div><button class="btn bo" style="width:100%;justify-content:center" onclick="toast('Booking coming soon 🙏','📅')">Book</button></div>
-    <div class="pkg featured"><div class="pkg-badge">Most chosen</div><div class="pkg-name">Care Pack · 4 sessions</div><div class="pkg-price">₹800</div><div class="pkg-per">₹200/session · save ₹200</div><div class="pkg-feat"><span>Same counsellor</span><span>Progress tracking</span><span>WhatsApp check-ins</span></div><button class="btn bw" style="width:100%;justify-content:center" onclick="toast('Booking coming soon 🙏','💚')">Book Pack</button></div>
-    <div class="pkg"><div class="pkg-name">Deep Journey · 8 sessions</div><div class="pkg-price">₹1,200</div><div class="pkg-per">₹150/session · save ₹800</div><div class="pkg-feat"><span>Dedicated counsellor</span><span>Monthly report</span><span>Crisis support access</span></div><button class="btn bo" style="width:100%;justify-content:center" onclick="toast('Booking coming soon 🙏','📅')">Book Journey</button></div>
+    <div class="pkg"><div class="pkg-name">Single Session</div><div class="pkg-price">₹250</div><div class="pkg-per">counsellor · 45 min</div><div class="pkg-feat"><span>Video call</span><span>Choose your counsellor</span><span>No commitment</span></div><button class="btn bo" style="width:100%;justify-content:center" onclick="toast('Booking opens when counsellors are verified 🙏','📅')">Notify me when live</button></div>
+    <div class="pkg featured"><div class="pkg-badge">Most chosen</div><div class="pkg-name">Care Pack · 4 sessions</div><div class="pkg-price">₹800</div><div class="pkg-per">₹200/session · save ₹200</div><div class="pkg-feat"><span>Same counsellor</span><span>Progress tracking</span><span>WhatsApp check-ins</span></div><button class="btn bw" style="width:100%;justify-content:center" onclick="toast('Booking opens when counsellors are verified 🙏','💚')">Notify me when live</button></div>
+    <div class="pkg"><div class="pkg-name">Deep Journey · 8 sessions</div><div class="pkg-price">₹1,200</div><div class="pkg-per">₹150/session · save ₹800</div><div class="pkg-feat"><span>Dedicated counsellor</span><span>Monthly report</span><span>Crisis support access</span></div><button class="btn bo" style="width:100%;justify-content:center" onclick="toast('Booking opens when counsellors are verified 🙏','📅')">Notify me when live</button></div>
   </div>
 </div>
 
@@ -1867,14 +1946,371 @@ input,textarea,select{font-family:var(--fb)}
   <div class="os-bottom-note">
     <div style="font-family:var(--fd);font-size:19px;font-style:italic;color:#F2E8D4;margin-bottom:7px">"Built from experience, not observation."</div>
     <div style="font-size:13px;color:rgba(242,232,212,.5);line-height:1.65;max-width:520px">Baaki Hai is early. It is imperfect. It will be shaped by the people who join it. If you see what it is trying to become — come help it get there.</div>
-    <div style="margin-top:14px;font-size:12px;color:rgba(242,232,212,.3)">Write to us: <span style="color:var(--turmeric-s);font-weight:700;cursor:pointer" onclick="toast('Email: hello@baakihai.in — coming soon 🙏','✉️')"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="650d0009090a250704040e0c0d040c4b0c0b">[email&#160;protected]</a></span></div>
+    <div style="margin-top:14px;font-size:12px;color:rgba(242,232,212,.3)">Write to us: <a href="mailto:baakihai.connect@gmail.com" style="color:var(--turmeric-s);font-weight:700;text-decoration:none">baakihai.connect@gmail.com</a></div>
+    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+      <a href="https://www.youtube.com/@BaakiHai" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(242,232,212,.07);border:1px solid rgba(242,232,212,.13);border-radius:20px;padding:6px 14px;font-size:11.5px;font-weight:700;color:rgba(242,232,212,.6);text-decoration:none;transition:all .15s" onmouseover="this.style.background='rgba(242,232,212,.14)'" onmouseout="this.style.background='rgba(242,232,212,.07)'">▶ YouTube @BaakiHai</a>
+      <a href="https://instagram.com/baakihai.connect" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(242,232,212,.07);border:1px solid rgba(242,232,212,.13);border-radius:20px;padding:6px 14px;font-size:11.5px;font-weight:700;color:rgba(242,232,212,.6);text-decoration:none;transition:all .15s" onmouseover="this.style.background='rgba(242,232,212,.14)'" onmouseout="this.style.background='rgba(242,232,212,.07)'">◎ Instagram @baakihai.connect</a>
+    </div>
   </div>
 </div>
 
 </main>
 </div>
 
-<!-- TOAST -->
+<!-- ═══ IN-APP NOTIFICATION SYSTEM ═══ -->
+<style>
+/* ── IN-APP REMINDER STACK ── */
+.inapp-stack{position:fixed;bottom:22px;right:22px;z-index:9000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.inapp-notif{background:var(--bgc);border:1px solid var(--br2);border-radius:var(--rlg);padding:14px 16px;box-shadow:0 8px 32px rgba(24,16,10,.18);max-width:300px;pointer-events:all;transform:translateX(340px);opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);display:flex;gap:11px;align-items:flex-start}
+.inapp-notif.show{transform:translateX(0);opacity:1}
+.inapp-notif.hide{transform:translateX(340px);opacity:0}
+.inapp-notif-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.inapp-notif-body{flex:1}
+.inapp-notif-title{font-size:12.5px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.inapp-notif-msg{font-size:11.5px;color:var(--tx2);line-height:1.45}
+.inapp-notif-actions{display:flex;gap:6px;margin-top:8px}
+.inapp-notif-btn{padding:4px 10px;border-radius:7px;font-family:var(--fb);font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .15s}
+.inapp-notif-btn.primary{background:var(--terra);color:white}
+.inapp-notif-btn.primary:hover{background:#9E3D18}
+.inapp-notif-btn.secondary{background:var(--c2);color:var(--tx2)}
+.inapp-notif-btn.secondary:hover{background:var(--c3)}
+.inapp-close{background:none;border:none;color:var(--tx3);font-size:15px;cursor:pointer;flex-shrink:0;padding:0;line-height:1;transition:color .15s}
+.inapp-close:hover{color:var(--tx)}
+/* ── REMINDER SETTINGS CARD in Sidebar ── */
+.reminder-settings-mini{margin:10px 17px 0;background:var(--turmeric-bg);border:1px solid rgba(201,138,20,.2);border-radius:var(--rmd);padding:9px 12px}
+.rsm-title{font-size:10px;font-weight:700;color:var(--turmeric);letter-spacing:.5px;margin-bottom:6px}
+.rsm-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.rsm-row:last-child{margin-bottom:0}
+.rsm-label{font-size:11px;color:var(--tx2)}
+/* ── NOTIF BADGE ON BELL ── */
+.nbadge{position:absolute;top:-2px;right:-2px;min-width:16px;height:16px;background:var(--terra);border-radius:8px;border:2px solid var(--bgt);font-size:9px;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;padding:0 3px;opacity:0;transform:scale(0);transition:all .2s}
+.nbadge.visible{opacity:1;transform:scale(1)}
+</style>
+
+<!-- In-app notification stack -->
+<div class="inapp-stack" id="inapp-stack"></div>
+
+<script>
+/* ════════════════════════════════════════
+   IN-APP NOTIFICATION / REMINDER SYSTEM
+════════════════════════════════════════ */
+
+var inappQueue = [];
+var inappActive = 0;
+var MAX_CONCURRENT = 2;
+var notifCount = 0;
+
+/* ── Show one in-app notification ── */
+function showInapp(opts){
+  // opts: { icon, title, msg, actions:[{label,fn,primary}], duration, id, onAction }
+  var el = document.createElement('div');
+  el.className = 'inapp-notif';
+  el.id = opts.id || ('inapp-' + Date.now());
+
+  var actionsHTML = '';
+  if(opts.actions && opts.actions.length){
+    actionsHTML = '<div class="inapp-notif-actions">' +
+      opts.actions.map(function(a,i){
+        return '<button class="inapp-notif-btn ' + (a.primary?'primary':'secondary') + '" onclick="inappAction(\'' + el.id + '\',' + i + ')">' + a.label + '</button>';
+      }).join('') + '</div>';
+  }
+
+  el.innerHTML =
+    '<div class="inapp-notif-icon">' + opts.icon + '</div>' +
+    '<div class="inapp-notif-body">' +
+      '<div class="inapp-notif-title">' + opts.title + '</div>' +
+      '<div class="inapp-notif-msg">' + opts.msg + '</div>' +
+      actionsHTML +
+    '</div>' +
+    '<button class="inapp-close" onclick="dismissInapp(\'' + el.id + '\')">✕</button>';
+
+  el._actions = opts.actions || [];
+  el._onAction = opts.onAction;
+
+  var stack = document.getElementById('inapp-stack');
+  stack.appendChild(el);
+  inappActive++;
+
+  // Animate in
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('show'); }); });
+
+  // Update bell badge
+  notifCount++;
+  updateBellBadge();
+
+  // Auto-dismiss
+  var dur = opts.duration || 8000;
+  el._timer = setTimeout(function(){ dismissInapp(el.id); }, dur);
+
+  return el.id;
+}
+
+function dismissInapp(id){
+  var el = document.getElementById(id);
+  if(!el) return;
+  clearTimeout(el._timer);
+  el.classList.remove('show');
+  el.classList.add('hide');
+  setTimeout(function(){
+    if(el.parentNode) el.parentNode.removeChild(el);
+    inappActive = Math.max(0, inappActive - 1);
+    processInappQueue();
+  }, 400);
+}
+
+function inappAction(id, idx){
+  var el = document.getElementById(id);
+  if(!el) return;
+  var action = el._actions[idx];
+  if(action && action.fn) action.fn();
+  dismissInapp(id);
+}
+
+function queueInapp(opts){
+  if(inappActive < MAX_CONCURRENT){
+    showInapp(opts);
+  } else {
+    inappQueue.push(opts);
+  }
+}
+
+function processInappQueue(){
+  if(inappQueue.length && inappActive < MAX_CONCURRENT){
+    showInapp(inappQueue.shift());
+  }
+}
+
+function updateBellBadge(){
+  var badge = document.querySelector('.nbadge');
+  if(!badge){
+    var bell = document.querySelector('.icon-btn[title="Notifications"]');
+    if(bell){
+      badge = document.createElement('div');
+      badge.className = 'nbadge';
+      bell.appendChild(badge);
+    }
+  }
+  if(badge){
+    badge.textContent = notifCount > 9 ? '9+' : notifCount;
+    badge.classList.toggle('visible', notifCount > 0);
+  }
+}
+
+/* Reset badge when panel opened */
+var _origToggleNotif = window.toggleNotif;
+window.toggleNotif = function(){
+  if(typeof _origToggleNotif === 'function') _origToggleNotif();
+  notifCount = 0;
+  updateBellBadge();
+};
+
+/* ── REMINDER SCHEDULE ── */
+var reminderSettings = {
+  morningCheckin: true,    // 9 AM daily
+  eveningWrapup: true,     // 8 PM daily
+  inactivity: true,        // after 2+ days
+  studyBlock: true,        // before scheduled blocks
+  weeklyWrap: true,        // Sunday evening
+  streakAlert: true,       // streak milestone
+};
+
+/* Load saved settings */
+try {
+  var saved = localStorage.getItem('bh_reminder_settings');
+  if(saved) reminderSettings = Object.assign(reminderSettings, JSON.parse(saved));
+} catch(e){}
+
+function saveReminderSettings(){
+  try{ localStorage.setItem('bh_reminder_settings', JSON.stringify(reminderSettings)); }catch(e){}
+}
+
+/* ── SMART REMINDER ENGINE ── */
+function initReminderEngine(){
+  var now = new Date();
+  var hour = now.getHours();
+  var day = now.getDay(); // 0=Sun
+  var lastVisit = null;
+  try{ lastVisit = new Date(localStorage.getItem('bh_last_visit')||now); }catch(e){ lastVisit = now; }
+  var daysSince = (now - lastVisit) / (1000*60*60*24);
+  localStorage.setItem('bh_last_visit', now.toISOString());
+
+  /* Inactivity check — immediately on load if away 2+ days */
+  if(reminderSettings.inactivity && daysSince >= 2){
+    setTimeout(function(){
+      var days = Math.round(daysSince);
+      queueInapp({
+        icon: '🌙',
+        title: days >= 7 ? 'A week has passed — we missed you' : 'Haven\'t seen you in a couple of days',
+        msg: days >= 7
+          ? 'That\'s okay. We weren\'t going anywhere. Whenever you\'re ready, we\'re here. Baaki hai. 💛'
+          : 'No pressure — just checking in. Come back at your own pace. We\'ve got you. 🌿',
+        duration: 12000,
+        actions: [
+          { label: 'Go to tasks', primary: true, fn: function(){ go('tasks', document.querySelector('[data-pg=tasks]')); } },
+          { label: 'Talk to Sahayak', fn: function(){ go('sahayak', document.querySelector('[data-pg=sahayak]')); } }
+        ]
+      });
+    }, 2000);
+  }
+
+  /* Morning check-in — 7–10 AM */
+  if(reminderSettings.morningCheckin && hour >= 7 && hour <= 10){
+    var checkedIn = localStorage.getItem('bh_checkin_' + now.toDateString());
+    if(!checkedIn){
+      setTimeout(function(){
+        var greetings = [
+          'No pressure today — just checking in. Even one small thing counts.',
+          'A new day. A fresh page. Whatever you manage today is enough.',
+          'Good morning. You\'re here. That already matters.',
+          'Rest well last night? Today doesn\'t have to be perfect to be good.',
+        ];
+        var g = greetings[now.getDate() % greetings.length];
+        queueInapp({
+          icon: '🌅',
+          title: 'Good morning 🌅',
+          msg: g,
+          duration: 10000,
+          actions: [
+            { label: 'Set today\'s intent', primary: true, fn: function(){ go('tasks', document.querySelector('[data-pg=tasks]')); } },
+            { label: 'Talk it out', fn: function(){ go('sahayak', document.querySelector('[data-pg=sahayak]')); } }
+          ]
+        });
+        localStorage.setItem('bh_checkin_' + now.toDateString(), '1');
+      }, 3000);
+    }
+  }
+
+  /* Evening wrap-up — 8–10 PM */
+  if(reminderSettings.eveningWrapup && hour >= 20 && hour <= 22){
+    var wrapDone = localStorage.getItem('bh_wrapup_' + now.toDateString());
+    if(!wrapDone){
+      setTimeout(function(){
+        var pending = [];
+        try{ var t = JSON.parse(localStorage.getItem('bh_tasks')||'[]'); pending = t.filter(function(x){ return x.progress < 100; }); }catch(e){}
+        var msg = pending.length
+          ? 'You had ' + pending.length + ' task' + (pending.length>1?'s':'') + ' today. Whatever you got done was enough — let\'s log it and rest.'
+          : 'Evening 🌙 How did today go? A quick wrap-up helps tomorrow feel lighter.';
+        queueInapp({
+          icon: '🌙',
+          title: 'Evening check-in',
+          msg: msg,
+          duration: 12000,
+          actions: [
+            { label: 'EOD wrap-up', primary: true, fn: function(){ go('tasks', document.querySelector('[data-pg=tasks]')); setTimeout(showEOD, 300); } },
+            { label: 'Dismiss', fn: function(){} }
+          ]
+        });
+        localStorage.setItem('bh_wrapup_' + now.toDateString(), '1');
+      }, 5000);
+    }
+  }
+
+  /* Weekly wrap — Sunday 6–9 PM */
+  if(reminderSettings.weeklyWrap && day === 0 && hour >= 18 && hour <= 21){
+    var weekWrap = localStorage.getItem('bh_weekwrap_' + getWeekKey());
+    if(!weekWrap){
+      setTimeout(function(){
+        queueInapp({
+          icon: '📅',
+          title: 'Weekly reflection 💛',
+          msg: 'The week is wrapping up. Whatever you managed — any study, any rest, any moment of honesty — it counted. How are you feeling about it?',
+          duration: 14000,
+          actions: [
+            { label: 'Talk to Sahayak', primary: true, fn: function(){ go('sahayak', document.querySelector('[data-pg=sahayak]')); } },
+            { label: 'See my week', fn: function(){ go('schedule', document.querySelector('[data-pg=schedule]')); } }
+          ]
+        });
+        localStorage.setItem('bh_weekwrap_' + getWeekKey(), '1');
+      }, 7000);
+    }
+  }
+
+  /* Streak milestone */
+  if(reminderSettings.streakAlert){
+    var streak = 7; // from existing streak logic
+    if([3,7,14,21,30].indexOf(streak) !== -1){
+      var milestoneKey = 'bh_streak_milestone_' + streak;
+      if(!localStorage.getItem(milestoneKey)){
+        setTimeout(function(){
+          queueInapp({
+            icon: '🔥',
+            title: streak + '-day streak! 🔥',
+            msg: streak + ' days of showing up — even on the hard ones. That consistency is yours. Nobody can take that.',
+            duration: 10000,
+            actions: [{ label: 'Keep going 💪', primary: true, fn: function(){} }]
+          });
+          localStorage.setItem(milestoneKey, '1');
+        }, 6000);
+      }
+    }
+  }
+
+  /* Mindfulness nudge — mid-afternoon 2–4 PM */
+  if(hour >= 14 && hour <= 16){
+    var mindKey = 'bh_mind_' + now.toDateString();
+    if(!localStorage.getItem(mindKey)){
+      setTimeout(function(){
+        var tips = [
+          'Take 3 slow breaths. In for 4, hold for 4, out for 6. You\'ll feel the difference.',
+          '5-minute break: step outside if you can. Even a window view resets the brain.',
+          'Drink a glass of water. Seriously — dehydration looks like anxiety sometimes.',
+          'Look away from the screen for 20 seconds. Your eyes — and your mind — need it.',
+        ];
+        queueInapp({
+          icon: '🌿',
+          title: 'Mid-afternoon care 🌿',
+          msg: tips[now.getDate() % tips.length],
+          duration: 8000,
+          actions: [{ label: 'Mindfulness club', fn: function(){ go('sangam', document.querySelector('[data-pg=sangam]')); } }]
+        });
+        localStorage.setItem(mindKey, '1');
+      }, 4000);
+    }
+  }
+}
+
+function getWeekKey(){
+  var d = new Date();
+  var jan1 = new Date(d.getFullYear(), 0, 1);
+  return d.getFullYear() + '_w' + Math.ceil((((d - jan1) / 86400000) + jan1.getDay() + 1) / 7);
+}
+
+/* ── MANUAL REMINDER TRIGGERS (for Settings toggles) ── */
+window.triggerTestReminder = function(){
+  queueInapp({
+    icon: '🌅',
+    title: 'Good morning, Aryan',
+    msg: 'No pressure today — just checking in. Even one small thing counts. We\'ve got you. 🌿',
+    duration: 8000,
+    actions: [
+      { label: 'Open tasks', primary: true, fn: function(){ go('tasks', document.querySelector('[data-pg=tasks]')); } },
+      { label: 'Talk to Sahayak', fn: function(){ go('sahayak', document.querySelector('[data-pg=sahayak]')); } }
+    ]
+  });
+};
+
+/* ── ADD PREVIEW BUTTON TO SETTINGS ── */
+function addReminderPreviewToSettings(){
+  var setRows = document.querySelectorAll('.settings-section');
+  setRows.forEach(function(sec){
+    var title = sec.querySelector('.set-title');
+    if(title && title.textContent.trim() === 'Notifications & Reminders'){
+      var preview = document.createElement('div');
+      preview.style.cssText = 'margin-top:10px;padding-top:10px;border-top:1px solid var(--br)';
+      preview.innerHTML = '<button class="btn bo bsm" onclick="triggerTestReminder()" style="font-size:11px"><i class="ph ph-bell-ringing"></i> Preview a reminder</button> <span style="font-size:11px;color:var(--tx3);margin-left:6px">Test how they look</span>';
+      sec.appendChild(preview);
+    }
+  });
+}
+
+/* ── INIT ── */
+setTimeout(function(){
+  initReminderEngine();
+  addReminderPreviewToSettings();
+}, 1500);
+</script>
+
+<!-- TOAST (keep existing) -->
 <div class="toast" id="toast"></div>
 
 <script>
@@ -3561,11 +3997,36 @@ function saveNotifyEmail(){
 }
 
 async function callClaude(msg){
-  // Sahayak launches next week — stub response for now
   chatHistory.push({role:'user',content:msg});
-  const reply='Sahayak is coming very soon. Thank you for being here early 🙏';
-  chatHistory.push({role:'assistant',content:reply});
-  return reply;
+  const examCtx = (examData[currentExam]||examData['upsc']).context;
+  const langInstruction = currentLang !== 'en'
+    ? `\n\nLANGUAGE: Respond ENTIRELY in ${langNames[currentLang]}. Warm, conversational — never formal.`
+    : '';
+  const systemPrompt = SYSTEM + '\n\nEXAM CONTEXT:\n' + examCtx + langInstruction;
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: chatHistory.slice(-12) // keep last 12 turns for context
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(()=>({}));
+      throw new Error(err.error || 'API error');
+    }
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'I hear you. Can you tell me a little more?';
+    chatHistory.push({role:'assistant', content: reply});
+    return reply;
+  } catch(err) {
+    console.error('Sahayak error:', err);
+    chatHistory.pop(); // remove the user message on failure so they can retry
+    return 'Something went wrong on my end. Please try again — I\'m still here 🙏';
+  }
 }
 
 function updateMemory(text){
@@ -3679,6 +4140,41 @@ function sendQ(btn){
 }
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function autoResize(el){el.style.height='';el.style.height=Math.min(el.scrollHeight,96)+'px';}
+
+/* ── MOBILE SIDEBAR ── */
+function toggleSidebar(){
+  var sb=document.querySelector('.sidebar');
+  if(sb) sb.classList.toggle('open');
+}
+
+/* ── MOOD LOW RESPONSE (override existing doCheckin) ── */
+function doCheckin(btn,label){
+  document.querySelectorAll('#checkin-btns button').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  toast('Check-in: '+label,'💚');
+  var day=new Date().getDay();
+  moodData[day===0?6:day-1]=label.slice(-2);
+  renderMoodTrack();
+  if(label.includes('Low')||label.includes('😔')){
+    setTimeout(function(){
+      var streak=parseInt(document.getElementById('streak-top')?.textContent||'0');
+      var doneTasks=tasks.filter(function(t){return t.done;}).length;
+      var el=document.createElement('div');
+      el.style.cssText='background:var(--sage-bg);border:1px solid rgba(61,122,85,.2);border-radius:var(--rlg);padding:14px 18px;margin-top:12px;animation:pfi .3s ease';
+      el.innerHTML='<div style="font-size:13px;font-weight:700;color:var(--sage);margin-bottom:6px">🌿 Low days are part of the journey too</div>'+
+        (streak>0?'<div style="font-size:12.5px;color:var(--tx2);margin-bottom:6px">You\'ve shown up <strong>'+streak+' days</strong> in a row. That doesn\'t disappear on a low day.</div>':'')+
+        (doneTasks>0?'<div style="font-size:12.5px;color:var(--tx2);margin-bottom:6px">You already completed '+doneTasks+' task'+(doneTasks>1?'s':'')+' today. That is real.</div>':'')+
+        '<div style="font-size:12.5px;color:var(--tx2);margin-bottom:10px">You don\'t have to push through. Rest counts. The streak is safe.</div>'+
+        '<div style="display:flex;gap:7px;flex-wrap:wrap">'+
+          '<button class="btn bsage bsm" onclick="go(\'sahayak\',document.querySelector(\'[data-pg=sahayak]\'))">Talk to Sahayak 🌿</button>'+
+          '<button class="btn bo bsm" onclick="activateQuietMode()">Take a quiet day 🌙</button>'+
+          '<button class="btn bg2 bsm" onclick="this.closest(\'[style]\').remove()">Dismiss</button>'+
+        '</div>';
+      var card=btn.closest('.card');
+      if(card) card.after(el);
+    },600);
+  }
+}
 
 /* ── INIT ── */
 setDailyQuote();
