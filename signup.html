@@ -69,17 +69,30 @@
   <div class="container">
     <h2>Create Account</h2>
 
-    <input type="text" placeholder="Full Name">
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Password">
+    <form id="signupForm">
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Password" required>
 
-    <button>Sign Up</button>
+  <button type="submit">Sign Up</button>
+</form>
 
     <div class="link">
       Already have an account? 
       <a href="/login.html">Login</a>
     </div>
   </div>
+  <script>
+  document.getElementById("signupForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+
+    alert("Account created for " + name);
+
+    window.location.href = "/login.html";
+  });
+</script>
 
 </body>
 </html>
