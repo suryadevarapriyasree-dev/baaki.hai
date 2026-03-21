@@ -4194,11 +4194,12 @@ try{
   }
 }catch(e){}
 </script>
-  const user = sessionStorage.getItem("bh_user");
+<script>
+const user = sessionStorage.getItem("bh_user");
 
-  if (!user) {
-    window.location.href = "/login.html";
-  }
+if (!user) {
+  window.location.href = "/login.html";
+}
 </script>
 
 </body>
