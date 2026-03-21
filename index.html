@@ -4201,6 +4201,13 @@ if (!user) {
   window.location.href = "/login.html";
 }
 </script>
+  <script>
+const user = JSON.parse(sessionStorage.getItem("bh_user"));
+
+if (user && user.name) {
+  document.getElementById("username").innerText = user.name;
+}
+</script>
 
 </body>
 </html>
